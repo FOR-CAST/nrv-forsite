@@ -1,0 +1,9 @@
+[submodule "modules/burnSummaries"]
+	path = modules/burnSummaries
+	url = https://github.com/PredictiveEcology/burnSummaries
+[submodule "modules/NRV_summary"]
+	path = modules/NRV_summary
+	url = https://github.com/FOR-CAST/NRV_summary
+[submodule "packages/nrvtools"]
+	path = packages/nrvtools
+	url = https://github.com/FOR-CAST/nrvtools
