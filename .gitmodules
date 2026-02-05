@@ -13,3 +13,6 @@
 [submodule "modules/Biomass_summary"]
 	path = modules/Biomass_summary
 	url = https://github.com/PredictiveEcology/Biomass_summary
+[submodule "modules/fireSense_ELFs"]
+	path = modules/fireSense_ELFs
+	url = https://github.com/PredictiveEcology/fireSense_ELFs
