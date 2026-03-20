@@ -3,6 +3,7 @@ library(terra)
 library(reproducible)
 library(SpaDES.core)
 
+fig_path <- file.path("outputs", "figures") |> fs::dir_create()
 use_cache <- FALSE ## TODO: re-enable once it's working correctly
 
 options(
@@ -61,13 +62,25 @@ if (!file.exists(elfs_gpkg)) {
 ELF_polys <- sf::st_read(elfs_gpkg, quiet = TRUE)
 
 if (FALSE) {
-  ggplot2::ggplot() +
+  can_provs <- geodata::gadm("CA") |> sf::st_as_sf()
+
+  gg_elfs <- ggplot2::ggplot() +
     ggplot2::geom_sf(data = ELF_polys) +
+    ggplot2::geom_sf(data = can_provs, col = "black", fill = NA) +
+    ggplot2::geom_sf_label(data = ELF_polys, ggplot2::aes(label = ELF_ID), size = 3) +
     ggplot2::geom_sf(
-      data = dplyr::filter(ELF_polys, ELF_ID %in% c("6.2.1", "6.2.2", "6.2.3")),
-      fill = c("darkred", "darkblue", "black"),
+      data = dplyr::filter(ELF_polys, ELF_ID %in% c("14.1", "6.1.1", "6.2.2")),
+      fill = c("darkred", "darkblue", "orange"),
       alpha = 0.3
-    )
+    ) +
+    ggplot2::labs(title = "ELF polygon map", x = "Longitude", y = "Latitude")
+
+  ggplot2::ggsave(
+    filename = file.path(fig_path, "map_elfs.png"),
+    plot = gg_elfs,
+    width = 12,
+    height = 12
+  )
 }
 
 ## setup post-processing --------------------------------------------------------------------------

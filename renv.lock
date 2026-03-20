@@ -3552,6 +3552,41 @@
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
+    "geodata": {
+      "Package": "geodata",
+      "Version": "0.6-8",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Access Geographic Data",
+      "Date": "2025-12-19",
+      "Depends": [
+        "R (>= 3.5.0)",
+        "terra (>= 1.6.41)"
+      ],
+      "Imports": [
+        "rappdirs"
+      ],
+      "Suggests": [
+        "jsonlite",
+        "R.utils",
+        "httr",
+        "archive"
+      ],
+      "Encoding": "UTF-8",
+      "Maintainer": "Robert J. Hijmans <r.hijmans@gmail.com>",
+      "Description": "Functions for downloading of geographic data for use in spatial analysis and mapping. The package facilitates access to climate, crops, elevation, land use, soil, species occurrence, accessibility, administrative boundaries and other data.",
+      "License": "GPL (>=3)",
+      "URL": "https://rspatial.github.io/geodata/",
+      "BugReports": "https://github.com/rspatial/geodata/issues/",
+      "Authors@R": "c( person(\"Robert J.\", \"Hijmans\", role=c(\"cre\", \"aut\"),   email=\"r.hijmans@gmail.com\", comment=c(ORCID=\"0000-0001-5872-2872\")),\t\t\t person(\"Márcia\", \"Barbosa\", role=\"ctb\", comment=c(ORCID=\"0000-0001-8972-7713\")), person(\"Aniruddha\", \"Ghosh\", role=\"ctb\"), person(\"Alex\", \"Mandel\", role=\"ctb\"))",
+      "Config/pak/sysreqs": "libgdal-dev gdal-bin libgeos-dev libproj-dev libsqlite3-dev",
+      "Repository": "https://predictiveecology.r-universe.dev",
+      "RemoteUrl": "https://github.com/rspatial/geodata",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "70bdec2ff65768bb06026be41c5cc8e235c655f9",
+      "NeedsCompilation": "no",
+      "Author": "Robert J. Hijmans [cre, aut] (ORCID: <https://orcid.org/0000-0001-5872-2872>), Márcia Barbosa [ctb] (ORCID: <https://orcid.org/0000-0001-8972-7713>), Aniruddha Ghosh [ctb], Alex Mandel [ctb]"
+    },
     "gert": {
       "Package": "gert",
       "Version": "2.3.1",
@@ -5287,8 +5322,7 @@
       "NeedsCompilation": "yes",
       "Author": "Deepayan Sarkar [aut, cre] (ORCID: <https://orcid.org/0000-0003-4107-1553>), Felix Andrews [ctb], Kevin Wright [ctb] (documentation), Neil Klepeis [ctb], Johan Larsson [ctb] (miscellaneous improvements), Zhijian (Jason) Wen [cph] (filled contour code), Paul Murrell [ctb], Stefan Eng [ctb] (violin plot improvements), Achim Zeileis [ctb] (modern colors), Alexandre Courtiol [ctb] (generics for larrows, lpolygon, lrect and lsegments)",
       "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "latticeExtra": {
       "Package": "latticeExtra",
@@ -5991,7 +6025,7 @@
     },
     "nrvtools": {
       "Package": "nrvtools",
-      "Version": "0.0.21.9001",
+      "Version": "0.0.21.9002",
       "Source": "GitHub",
       "Title": "Tools for Summarizing Outputs From Natural Range of Variability Simulations",
       "Authors@R": "person(c(\"Alex\", \"M\"), \"Chubaty\", , \"achubaty@for-cast.ca\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0001-7146-8135\"))",
@@ -6035,14 +6069,16 @@
       "Encoding": "UTF-8",
       "Roxygen": "list(markdown = TRUE)",
       "RoxygenNote": "7.3.3",
+      "LazyData": "true",
+      "LazyDataCompression": "gzip",
       "Author": "Alex M Chubaty [aut, cre] (ORCID: <https://orcid.org/0000-0001-7146-8135>)",
       "Maintainer": "Alex M Chubaty <achubaty@for-cast.ca>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "FOR-CAST",
       "RemoteRepo": "nrvtools",
-      "RemoteRef": "main",
-      "RemoteSha": "ab9fbdccb6de5356c9bfb71b414d852c0eadf7bf",
+      "RemoteRef": "development",
+      "RemoteSha": "508ab86aa653d349aade9788444b4faad7de5a58",
       "Remotes": "PredictiveEcology/map@development, PredictiveEcology/pemisc@development, PredictiveEcology/SpaDES.tools@development"
     },
     "numDeriv": {
