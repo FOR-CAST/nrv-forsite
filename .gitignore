@@ -4,6 +4,10 @@ inputs/
 inputs
 outputs/
 outputs
+wbi_inputs/
+wbi_inputs
+wbi_outputs/
+wbi_outputs
 .Rproj.user
 .Rhistory
 .RData
