@@ -42,7 +42,7 @@ lapply(ELF_ids, function(elf) {
     ## flammableMap -----------------------------------------------------------
     terra::writeRaster(
       flammableMap,
-      file.path(output_path, "flammableMap_year_2100.tif"),
+      file.path(output_path, "flammableMap_year2100.tif"),
       overwrite = TRUE
     )
 
@@ -50,9 +50,10 @@ lapply(ELF_ids, function(elf) {
     burnMaps <- fs::dir_ls(wbi_path, type = "file", regexp = "burnMap.*[.]tif$")
 
     purrr::walk(.x = burnMaps, .f = function(x) {
+      new_name <- stringr::str_replace(basename(x), "_[0-9]{4}_", "_")
       terra::rast(x) |>
         terra::crop(studyArea) |>
-        terra::writeRaster(filename = file.path(output_path, basename(x)), overwrite = TRUE)
+        terra::writeRaster(filename = file.path(output_path, new_name), overwrite = TRUE)
     })
 
     ## cohortData / pixelGroupMaps --------------------------------------------

@@ -1,3 +1,6 @@
+# workflowtools::check_project_packages()
+
+library(data.table)
 library(sf)
 library(terra)
 library(reproducible)
@@ -85,79 +88,129 @@ if (FALSE) {
 
 ## setup post-processing --------------------------------------------------------------------------
 
-cs <- "" ## TODO: what is the climate scenario called?
-elf_ids <- c("6.2.2") # ELF_polys$ELF_ID ## TODO: identify which ELFs were actually run
+study_areas <- c("4.3") # ELF_polys$ELF_ID ## TODO: identify which ELFs were actually run
+rv_periods <- c("1991-2020") ## TODO
+climate_scenarios <- c("CNRM-ESM2-1") ## TODO: should be "NRV"
 
-REPS <- 1L:5L ## TODO: adjust if more reps
+REPS <- 1L # 1L:5L ## TODO: adjust if more reps
 
-posthoc_paths <- list(
-  cachePath = "cache",
-  inputPath = "inputs",
-  modulePath = "modules",
-  outputPath = "outputs"
-)
+if (FALSE) {
+  ## use for testing the loops
+  sa = study_areas[1]
+  rv = rv_periods[1]
+  cs = climate_scenarios[1]
+}
 
-do.call(setPaths, posthoc_paths)
+lapply(study_areas, function(sa) {
+  lapply(scenarios, function(scenario) {
+    lapply(climate_scenarios, function(cs) {
+      ##
+      posthoc_paths <- list(
+        cachePath = "cache",
+        inputPath = "inputs",
+        modulePath = "modules",
+        outputPath = file.path("outputs", "testing", sa, scenario, cs) ## TODO: use real outputs once they are available
+      )
 
-parallel::mclapply(elf_ids, function(elf) {
-  ## params
-  posthoc_params <- list(
-    NRV_summary = list(
-      mode = "multi",
-      postprocessEvents = "bc",
-      sieveThresh = as.integer(1000 / 240) ## ~10 ha in pixels
-    ),
-    burnSummaries = list(
-      mode = "multi" ## TODO: others?
-    ),
-    Biomass_summary = list(
-      climateScenarios = cs,
-      mode = "multi",
-      reps = REPS,
-      simOutputPath = dirname(posthoc_paths$outputPath), ## "outputs"
-      studyAreaNames = elf,
-      year = years
-    ),
-    fireSense_summary = list(
-      climateScenarios = cs,
-      simOutputPath = dirname(posthoc_paths$outputPath), ## "outputs"
-      studyAreaNames = elf,
-      reps = REPS,
-      upload = doUpload
-    )
-  )
+      do.call(setPaths, posthoc_paths)
 
-  ## objects
-  sppEquiv <- TODO
-  treeSpecies <- unique(sppEquiv[, c("LandR", "Type")])
-  setnames(treeSpecies, "LandR", "Species")
+      ## params
+      posthoc_params <- list(
+        burnSummaries = list(
+          mode = "multi", ## TODO: others?
+          reps = REPS,
+          simOutputPath = posthoc_paths$outputPath,
+          simTimes = c(2011L, 2100L),
+          summaryInterval = 50L,
+          summaryPeriod = c(2720L, 2320L) ## TODO: confirm
+        ),
+        NRV_summary = list(
+          mode = "multi",
+          postprocessEvents = c("lm", "pm"),
+          reps = REPS,
+          sieveThresh = as.integer(1000 / 240), ## ~10 ha in pixels
+          simOutputPath = posthoc_paths$outputPath,
+          simTimes = c(2011L, 2100L),
+          summaryInterval = 50L,
+          summaryPeriod = c(2720L, 2320L) ## TODO: confirm
+        ),
+        Biomass_summary = list(
+          climateScenario = cs,
+          mode = "multi",
+          reps = REPS,
+          simOutputPath = posthoc_paths$outputPath,
+          studyAreaNames = sa,
+          years = c(2020L, 3020L)
+        ),
+        # TODO: ensure fireSense_summary is run in single mode to output necessary files
+        fireSense_summary = list(
+          climateScenario = cs,
+          mode = "multi",
+          reps = REPS,
+          simOutputPath = posthoc_paths$outputPath,
+          studyAreaNames = sa,
+          years = c(2020, 3020L)
+        )
+      )
 
-  rasterToMatchReporting <- terra::rast(TODO)
+      posthoc_modules <- names(posthoc_params)
 
-  reportingPolygons <- list(
-    elfs = ELF_polys ## TODO: others
-  )
+      ## objects
+      sppEquiv <- qs2::qs_read(file.path(
+        posthoc_paths$outputPath,
+        "rep01",
+        "sppEquiv_year2020.qs2"
+      )) ## same for all reps
 
-  ## TODO
-  posthoc_objects <- list(
-    rasterToMatch = rasterToMatchReporting,
-    reportingPolygons = reportingPolygons,
-    treeSpecies = treeSpecies ## Biomass_summary
-  )
+      sppColorVect <- qs2::qs_read(file.path(
+        posthoc_paths$outputPath,
+        "rep01",
+        "sppColorVect_year2020.qs2"
+      )) ## same for all reps
 
-  posthocSim <- simInitAndSpades(
-    times = list(start = 0, end = 1),
-    params = posthoc_params,
-    modules = posthoc_modules,
-    loadOrder = unlist(posthoc_modules),
-    objects = posthoc_objects,
-    paths = sim_paths,
-    cache = use_cache
-  )
+      treeSpecies <- unique(sppEquiv[, c("LandR", "Type")])
+      setnames(treeSpecies, "LandR", "Species")
 
-  # save simulation info ------------------------------------------------------------------------
-  info_md <- file.path(posthoc_paths$outputPath, "INFO.md")
-  cat(workflowtools::reproducibilityReceipt(), file = info_md, sep = "\n", append = TRUE)
+      rasterToMatch <- terra::rast(file.path(
+        posthoc_paths$outputPath,
+        "rep01/pixelGroupMap_year2020.tif"
+      ))
+      rasterToMatch[!is.na(rasterToMatch[])] <- 0L ## need to have values, but keep NAs
 
-  TRUE
+      studyAreaReporting <- dplyr::filter(ELF_polys, ELF_ID == sa) |>
+        terra::vect() |>
+        terra::project(rasterToMatch)
+
+      ## TODO: add other reporting polygons
+      reportingPolygons <- list(
+        elfs = dplyr::mutate(ELF_polys, ID = ELF_ID, NAME = ELF_ID, .before = "ELF_ID")
+      ) |>
+        lapply(sf::st_transform, crs = sf::st_crs(studyAreaReporting))
+
+      ## TODO
+      posthoc_objects <- list(
+        rasterToMatch = rasterToMatch,
+        rasterToMatchReporting = rasterToMatch,
+        reportingPolygons = reportingPolygons,
+        studyAreaReporting = studyAreaReporting,
+        treeSpecies = treeSpecies ## Biomass_summary
+      )
+
+      posthocSim <- simInitAndSpades(
+        times = list(start = 0, end = 1),
+        params = posthoc_params,
+        modules = posthoc_modules,
+        loadOrder = unlist(posthoc_modules),
+        objects = posthoc_objects,
+        paths = posthoc_paths,
+        cache = use_cache
+      )
+
+      # save simulation info ------------------------------------------------------------------------
+      info_md <- file.path(posthoc_paths$outputPath, "INFO.md")
+      cat(workflowtools::reproducibilityReceipt(), file = info_md, sep = "\n", append = TRUE)
+
+      TRUE
+    })
+  })
 })
