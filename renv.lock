@@ -6731,11 +6731,11 @@
     },
     "map": {
       "Package": "map",
-      "Version": "1.1.2.9001",
+      "Version": "1.1.2.9002",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Defines a meta class of geographical objects, the 'map' class, and associated tools",
-      "Date": "2025-09-25",
+      "Date": "2026-03-26",
       "Authors@R": "c( person(\"Eliot J B\", \"McIntire\", , \"eliot.mcintire@nrcan-rncan.gc.ca\", role = \"aut\", comment = c(ORCID = \"0000-0002-6914-8316\")), person(\"Alex M\", \"Chubaty\", , \"achubaty@for-cast.ca\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0001-7146-8135\")), person(\"His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada\", role = \"cph\") )",
       "Description": "The 'map' class is a collection of geospatial objects (e.g., from the 'sp', 'raster', 'sf', and 'terra' packages), with a number of metadata additions to enable powerful methods, e.g., for 'leaflet', reproducible GIS etc.",
       "License": "GPL-3",
@@ -6749,7 +6749,7 @@
         "digest",
         "methods",
         "parallelly",
-        "pemisc (>= 0.0.4.9008)",
+        "pemisc (>= 0.0.4.9016)",
         "raster (>= 2.8.4)",
         "reproducible (>= 2.0.8.9001)",
         "sf",
@@ -6777,11 +6777,11 @@
       "Maintainer": "Alex M Chubaty <achubaty@for-cast.ca>",
       "RemoteType": "github",
       "Remotes": "PredictiveEcology/pemisc@development, PredictiveEcology/reproducible@development, PredictiveEcology/SpaDES.tools@development, ropensci/tiler",
-      "RemoteHost": "api.github.com",
       "RemoteUsername": "PredictiveEcology",
       "RemoteRepo": "map",
       "RemoteRef": "development",
-      "RemoteSha": "c77bca7c43548e96417384cfb10ade078964cfc5"
+      "RemoteSha": "3c7373d10d38ba17123c0c195d91eedfcafd2a2b",
+      "RemoteHost": "api.github.com"
     },
     "maxnet": {
       "Package": "maxnet",
@@ -7477,13 +7477,13 @@
     },
     "pemisc": {
       "Package": "pemisc",
-      "Version": "0.0.4.9015",
+      "Version": "0.0.4.9016",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Miscellaneous Utilities Developed by the Predictive Ecology Group",
       "Description": "Miscellaneous utilities developed by the Predictive Ecology Group (<http://predictiveecology.org>).",
       "URL": "http://pemisc.predictiveecology.org, https://github.com/PredictiveEcology/pemisc",
-      "Date": "2025-07-28",
+      "Date": "2026-03-26",
       "Authors@R": "c( person(\"Eliot J B\", \"McIntire\", email = \"eliot.mcintire@nrcan-rncan.gc.ca\", role = c(\"aut\", \"cre\"), comment=c(ORCID = \"0000-0002-6914-8316\")), person(\"Alex M\", \"Chubaty\", email = \"achubaty@for-cast.ca\", role = c(\"aut\"), comment = c(ORCID = \"0000-0001-7146-8135\")), person(\"His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada\", role = \"cph\") )",
       "Depends": [
         "R (>= 4.3)"
@@ -7492,6 +7492,7 @@
         "amc (>= 0.1.6.9000)",
         "data.table",
         "fasterize",
+        "magrittr",
         "methods",
         "parallel",
         "parallelly",
@@ -7528,7 +7529,7 @@
       "RemoteUsername": "PredictiveEcology",
       "RemoteRepo": "pemisc",
       "RemoteRef": "development",
-      "RemoteSha": "d0365d58f61763a59c02eea016b3a0c132f79b39",
+      "RemoteSha": "cabc7e79b2b09d969ef2781051b0a6ff13019945",
       "RemoteHost": "api.github.com"
     },
     "peutils": {
@@ -9621,7 +9622,7 @@
       "NeedsCompilation": "yes",
       "Author": "Edzer Pebesma [aut, cre] (ORCID: <https://orcid.org/0000-0001-8049-7069>), Roger Bivand [ctb] (ORCID: <https://orcid.org/0000-0003-2392-6140>), Etienne Racine [ctb], Michael Sumner [ctb], Ian Cook [ctb], Tim Keitt [ctb], Robin Lovelace [ctb], Hadley Wickham [ctb], Jeroen Ooms [ctb] (ORCID: <https://orcid.org/0000-0002-4035-0289>), Kirill Müller [ctb], Thomas Lin Pedersen [ctb], Dan Baston [ctb], Dewey Dunnington [ctb] (ORCID: <https://orcid.org/0000-0002-9415-4582>)",
       "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/noble/latest"
+      "Repository": "CRAN"
     },
     "shape": {
       "Package": "shape",
@@ -10811,7 +10812,7 @@
       "NeedsCompilation": "yes",
       "Author": "Edzer Pebesma [aut, cre] (ORCID: <https://orcid.org/0000-0001-8049-7069>), Thomas Mailund [aut], Tomasz Kalinowski [aut], James Hiebert [ctb], Iñaki Ucar [aut] (ORCID: <https://orcid.org/0000-0001-6403-5550>), Thomas Lin Pedersen [ctb]",
       "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/noble/latest"
+      "Repository": "CRAN"
     },
     "urca": {
       "Package": "urca",
