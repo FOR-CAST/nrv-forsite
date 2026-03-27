@@ -8,6 +8,7 @@ wbi_inputs/
 wbi_inputs
 wbi_outputs/
 wbi_outputs
+*.html
 .Rproj.user
 .Rhistory
 .RData
