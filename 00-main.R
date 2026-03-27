@@ -90,7 +90,7 @@ if (FALSE) {
 
 study_areas <- c("4.3") # ELF_polys$ELF_ID ## TODO: identify which ELFs were actually run
 rv_periods <- c("1991-2020") ## TODO
-climate_scenarios <- c("CNRM-ESM2-1") ## TODO: should be "NRV"
+climate_scenarios <- c("CNRM-ESM2-1_ssp370") ## TODO: should be "NRV"
 
 REPS <- 1L # 1L:5L ## TODO: adjust if more reps
 
